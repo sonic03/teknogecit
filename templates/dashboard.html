@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+{% if messages %}
+
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+
+{% endif %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4" style="text-align:center;">Dashboard</h1>
+  </div>
+</div>
+<br>
+<a class="btn btn-danger" href="{%url 'articles:addarticle' %}">Makale Ekle</a>
+<a class="btn btn-danger" href="{%url 'articles:members' %}">Üyeler</a>
+<hr>
+<a class="btn btn-danger" href="{%url 'articles:addCategory' %}">Kategori Ekle</a>
+<br>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Başlık</th>
+      <th scope="col">Kategori</th>
+      <th scope="col">Eklenme Tarihi</th>
+      <th scope="col">Güncelle</th>
+      <th scope="col">Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for article in articles %}
+    <tr>
+    <th scope="row">{{article.id}}</th>
+      <td><a href="{%url 'articles:detail' article.slug %}">{{article.title}}</a></td>
+      <td><a href="/green/">{{article.category}}</a></td>
+      <td>{{article.add_date}}</td>
+      <td><a class="btn btn-danger" href='{%url 'articles:update' article.id %}'>Güncelle</a></td>
+      <td><a class="btn btn-danger" href='{%url 'articles:delete' article.id %}'>Sil</a></td>
+
+    </tr>  
+    {% endfor %}
+      
+    
+    
+    
+  </tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ contacts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+        </span>
+
+        {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }}">next</a>
+            <a href="?page={{ contacts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock body %}

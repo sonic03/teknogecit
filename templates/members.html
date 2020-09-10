@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+{% if messages %}
+
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+
+{% endif %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4" style="text-align:center;">Üyeler</h1>
+  </div>
+</div>
+<br>
+<form action="#" method="post" class="nk-form nk-form-style-1">
+{% csrf_token %}
+<div class="input-group">
+<input type="text" name="s" class="form-control" placeholder="Mail adres">
+<button class="nk-btn nk-btn-color-main-1">
+<span class="fa fa-search"></span>
+</button>
+</div>
+</form>
+<br>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col" style="color:white;">ID</th>
+      <th scope="col" style="color:white;">Üye</th>
+      <th scope="col" style="color:white;">Mail</th>
+      <th scope="col" style="color:white;">Kayıt Tarihi</th>
+      <th scope="col" style="color:white;">Last Login</th>
+      <th scope="col" style="color:white;">Sil</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for member in members %}
+    <tr>
+    <th scope="row" style="color:white;">{{member.id}}</th>
+    <td style="color:white;">{{member}}</td>
+    <td style="color:white;">{{member.email}}</td>
+    <td style="color:white;">{{member.date_joined}}</td>
+    <td style="color:white;">{{member.last_login}}</td>
+      
+      
+
+    </tr>  
+    {% endfor %}
+      
+    
+    
+    
+  </tbody>
+</table>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if contacts.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ contacts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ contacts.number }} of {{ contacts.paginator.num_pages }}.
+        </span>
+
+        {% if contacts.has_next %}
+            <a href="?page={{ contacts.next_page_number }}">next</a>
+            <a href="?page={{ contacts.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock body %}

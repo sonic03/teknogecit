@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="col-lg-6">
+<h3><span class="text-main-1">Kategori</span> Ekle</h3>
+<div class="nk-gap"></div>
+
+<form method="post" class="nk-mchimp validate">
+{% csrf_token %}
+
+<div class="input-group">
+<input type="text" name="catname" class="required email form-control" placeholder="Email *">
+<button type="submit" class="nk-btn nk-btn-color-dark-3">Ekle</button>
+</div>
+<div class="nk-form-response-success"></div>
+<div class="nk-form-response-error"></div>
+
+<div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_d433160c0c43dcf8ecd52402f_68d0448ee3" tabindex="-1" value=""></div>
+</form>
+
+</div>
+{% endblock body %}

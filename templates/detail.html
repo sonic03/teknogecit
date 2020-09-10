@@ -1,0 +1,127 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+
+    <div class="row">
+
+      <!-- Post Content Column -->
+      <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">{{article.title}}</h1>
+
+        <!-- Author -->
+        <p class="lead">
+          by
+          <a href="#">{{article.author}}</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>{{article.add_date}}</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        <img class="img-fluid rounded" src="{{article.article_img.url}}" alt="">
+
+        
+        <hr>
+        <p class="lead">{{article.content|safe}}</p>
+        <hr>
+        
+        
+        <form method="post" action="/articles/likes/{{article.id}}" >
+          {% csrf_token %}
+          <button type="submit" name="article_id" value="{{article.id}}" class="btn btn-primary"><i class="fa fa-thumbs-o-up"></i></button>
+        
+          <p style="float:right">{{like}} like aldı. </p>
+          <p>You have visited this page {{ num_visits }}.</p>
+          <p>You have visited this page {{ visits }}.</p>
+          {% if not request.COOKIES.visits %}
+                    <p>This is your first visit to the site. From now on I will track your visits to this site.</p>
+                {% else %}
+                    <p>
+                        This is your {{ request.COOKIES.visits|add:'1' }} visit
+                    </p>
+                {% endif %}
+
+        </form>
+        
+        <hr>
+        
+        <!-- Post Content -->
+        {% if request.user.is_authenticated %}
+        <div class="card my-4">
+          <h5 class="card-header">Leave a Comment:</h5>
+          <div class="card-body">
+            <form method="post" action="/articles/comment/{{article.id}}">
+            {% csrf_token %}
+              <div class="form-group">
+              
+                <label for="exampleInputEmail1">Email address</label>
+                <textarea name="commet_content" class="form-control" rows="3"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+        <hr>
+        {% else %}
+        <div class="alert alert-danger">Yorum yapabilmek için <a href="/user/register">Üye olun</a> ya da <a href="/user/login">Giriş</a> yapın !!! </div>
+        {% endif %}
+        
+        
+        
+        {% if comments %}
+        {% for comment in comments %}
+        <div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+          <div class="media-body">
+            <h5 class="mt-0" style="float:right">{{comment.comment_date}}</h5>
+            <h5 class="mt-0">{{comment.commet_author}}</h5>
+            {{comment.commet_content}}
+          </div>
+        </div>
+        <hr>
+        {% endfor %}
+        {% else %}
+        <div class="nk-info-box text-danger">
+                    <div class="nk-info-box-icon">
+                        <i class="ion-close-round"></i>
+                    </div>
+                    <h3>Henüz Yorum Bulunmuyor ...</h3>
+                    
+                </div>
+        {% endif %}
+        
+    </div>
+    <div class="col-lg-4">
+    <h1 class="mt-4" style="text-align:center;">Benzer yazılar</h1>
+    <hr>
+      
+        
+{% for sim in similar %}
+
+  
+  <div class="card" style="width: 18rem;margin:10% 10% 10% 10%;">
+  <img src="{{sim.article_img.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{sim.title}}</h5>
+    <p class="card-text">By {{sim.author}}, {{sim.category}}</p>
+    <p class ="card-text">{{sim.content|safe|truncatewords:10}}</p>
+    <a href="{%url 'articles:detail' sim.id %}" class="btn btn-primary">Read More ...</a>
+
+  </div>
+  
+</div>
+{% endfor %}
+          
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock body %}

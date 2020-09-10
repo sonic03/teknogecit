@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}
+    {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/site.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/default-skin.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flickity.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/photoswipe.min.css' %}">
+    <script defer src="{% static 'js/all.js' %}"></script>
+    <script defer src="{% static 'js/v4-shims.js' %}"></script>
+
+    <style>
+
+        
+       
+        
+        
+
+    </style>
+
+
+
+</head>
+<body style=>
+
+{% include "include/newnavbar.html" %}
+<div class="container">
+{% block body %}
+
+{% endblock body %}
+</div>
+
+{% include "include/footer.html" %}
+
+
+
+    <script src="{% static '/js/jquery.js' %}" ></script>
+    <script src="{% static '/js/mysitejq.jquery.js' %}" ></script>
+<script src="{% static '/js/bootstap.min.js' %}"></script>
+<script src="{% static '/js/mysite.min.js' %}"></script>
+</body>
+</html>

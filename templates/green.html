@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+
+
+{% block body %}
+
+
+<div class="row">
+<div class="col-md-12">
+    
+    <div class="row">
+      <div class="col-md-6" style="border:2px solid red;box-sizing:border-box;">
+      <br>
+      
+        {% for article in articles %}
+        <div class="media col-md-12"style="padding:10px;margin:0 auto;" >
+
+          <img class="img-thumbnail" style="width:80px;height:80px;" src="{{article.article_img.url}}" alt="Generic placeholder image">
+          <div class="media-body" style="margin-left:10%;">
+            <h5 clas="media-heading" >{{article.title|truncatewords:5}}</h5>
+            <p>{{article.content|safe|truncatewords:10}}</p>
+          </div>
+        </div>
+        <hr>
+        {% endfor %}
+      </div>
+      <div class="col-md-6">
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+  
+  <!--<div class="card" style="width: 15rem;" style="margin-top:2px;margin-left:5px;">
+  <img src="{{article.article_img.url}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{article.title}}</h5>
+    <p class="card-text">By {{article.author}}, {{article.category}}</p>
+    <p class ="card-text">{{article.content|safe|truncatewords:10}}</p>
+    <a href="/articles/article/{{article.id}}" class="btn btn-primary">Read More ...</a>
+
+  </div>
+  
+</div>-->
+
+
+{% endblock body %}
